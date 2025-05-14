@@ -5,6 +5,207 @@ completedTurnByNumber = []
 completedPointNumber = []
 letterSet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
+def groupNumberIt(board, size, mineBoard):
+    
+    if (size == 8):
+    
+        for pair in completedTurn:
+            
+            hasUp = True
+            hasDown = True
+            hasLeft = True
+            hasRight = True
+            
+            if (pair[0] == "a"):
+                
+                hasUp = False
+                
+            if (pair[0] == "h"):
+                
+                hasDown = False
+                
+            if (pair[1] == 1):
+                
+                hasLeft = False
+                
+            if (pair[1] == 8):
+                
+                hasRight = False
+                
+            count = 0
+                
+            if (hasUp == True):
+                
+                coordOne = 0
+        
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo-1][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne] = count
+                    
+            if (hasDown == True):
+                
+                coordOne = 0
+        
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo+1][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne] = count
+                    
+            if (hasLeft == True):
+                
+                coordOne = 0
+                
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                    
+                coordOne -= 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne+1] = count
+                
+            if (hasRight == True):
+                
+                coordOne = 0
+                
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                    
+                coordOne += 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne-1] = count
+                
+            if (hasUp == True and hasLeft == True):
+                
+                coordOne = 0
+                
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                    
+                coordOne -= 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo-1][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne+1] = count
+                
+            if (hasUp == True and hasRight == True):
+                
+                coordOne = 0
+                
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                    
+                coordOne += 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo-1][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne-1] = count
+                
+            if (hasDown == True and hasLeft == True):
+                
+                coordOne = 0
+                
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                    
+                coordOne -= 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo+1][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne+1] = count
+                
+            if (hasDown == True and hasRight == True):
+                
+                coordOne = 0
+                
+                for letter in letterSet:
+                    
+                    if (letter == pair[0]):
+                        
+                        break
+                    
+                    coordOne += 1
+                    
+                coordOne += 1
+                
+                coordTwo = pair[1] - 1
+                
+                if (mineBoard[coordTwo+1][coordOne] == "x"):
+                    
+                    count += 1
+                    
+                board[coordTwo][coordOne-1] = count
+
 def whichToMakeGoBoom(board, size, mineBoard, move):
     
     coordOne = 0
@@ -749,8 +950,6 @@ def turnOne(board, size, mineCount, mineBoard):
          
     checkAround(board, size, newMoveOne, kaboomCount)
     
-    printBoard(board, size)
-    
     convertLetterNumToNumNum(board)
     
     addMine(board, kaboomCount, size, mineBoard, newMoveOne)
@@ -811,7 +1010,7 @@ def addMine(board, mineCount, size, mineBoard, move):
         
         randomMine = random.randint(0, size*size)
         
-        if (randomMine not in mineLab and randomMine + 1 not in completedPointNumber):
+        if (randomMine not in mineLab and (randomMine + 1 not in completedPointNumber)):
             
             mineLab.append(randomMine)
             
@@ -843,6 +1042,8 @@ def addMine(board, mineCount, size, mineBoard, move):
         if (end == True):
             
             break
+        
+    groupNumberIt(board, size, mineBoard)
 
 def main():
     
@@ -901,6 +1102,8 @@ def main():
     
     mCount = turnOne(board, size, mineCount, mineBoard)
     
+    printBoard(board, size)
+    
     convertLetterNumToNumNum(board)
     
     win = False
@@ -958,6 +1161,7 @@ def main():
         openSquares -= 1
         
         printBoard(board, size)
+        printBoard(mineBoard, size)
         
     if (openSquares == 0):
         
