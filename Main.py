@@ -5,17 +5,6 @@ completedTurnByNumber = []
 completedPointNumber = []
 letterSet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-def groupNumberIt(board, size, mineBoard, move):
-    
-        for pair in completedTurn:
-            
-            hasUp = True
-            hasDown = True
-            hasLeft = True
-            hasRight = True
-            
-            if ()
-
 def whichToMakeGoBoom(board, size, mineBoard, move):
     
     coordOne = 0
@@ -40,8 +29,6 @@ def whichToMakeGoBoom(board, size, mineBoard, move):
     convertLetterNumToNumNum(board)
     
     fillIn(board, size, move)
-    
-    numberIt(board, size, mineBoard, move)
 
 def convertTurnToNum(board):
     
@@ -856,8 +843,6 @@ def addMine(board, mineCount, size, mineBoard, move):
         if (end == True):
             
             break
-        
-    groupNumberIt(board, size, mineBoard, move)
 
 def main():
     
